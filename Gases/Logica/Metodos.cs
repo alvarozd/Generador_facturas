@@ -9,17 +9,19 @@ using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Xml;
 
 namespace Gases.Logica
 {
-    internal class Metodos
+    public class Metodos
 
     {
         //CREDENCIALES PARA CONEXION CON EL WEB SERVICE Y VARIBLE PARA GUARDAR INFORMACION DE DATOS CONVERTIDOS EN JSON
         string user = "GRCEOPORTALV";
         string pass = "UfTgN-kE2a566&/";
         public string json;
+        public static dynamic informacion; 
 
         public void ConsultarDatos(string contrato) //VARIABLE CONTRATO LEIDA DESDE LA VENTANA PRINCIPAL
         {
@@ -47,6 +49,10 @@ namespace Gases.Logica
             XmlDocument xmlDocument = new XmlDocument(); //CREACION DE ARCHIVO XML
             xmlDocument.LoadXml(cod);//CARGA DE DATOS AL ARCHIVO XML
             json = JsonConvert.SerializeXmlNode(xmlDocument);//CREACION DEL JSON
+            informacion = JsonConvert.DeserializeObject(json);
+            //MessageBox.Show((string)informacion.FORMATO.FR_ENCABEZADO.FACTURA.FACTCODI);
+
+
 
         }
 
@@ -62,10 +68,7 @@ namespace Gases.Logica
             PF.SetFont(fuente.Funt);
             PF.SetTextAlignment(fuente.Alineamiento);
             PF.SetBold();
-
-
             document.Add(PF);
-
 
         }
 
@@ -82,6 +85,7 @@ namespace Gases.Logica
 
             document = new Document(pdfDoc);
             Preterminado.CargarCampos();
+            Preterminado.CamposVariables();
             foreach (var campo in Preterminado.ListaPre)
             {
 
@@ -89,8 +93,16 @@ namespace Gases.Logica
                 LlenarfuentesPDF(campo);
 
             }
-            GenerarCodigoBc();
-            PintarBc();
+            foreach (var campo in Preterminado.ListaCampos)
+            {
+
+
+                LlenarfuentesPDF(campo);
+
+            }
+
+           //  GenerarCodigoBc();
+           // PintarBc();
             pdfDoc.Close();
         }
 
@@ -102,7 +114,7 @@ namespace Gases.Logica
             {
                 Type = BarCodeType.Code128,
                 Data = "(416)7709998021396(8020)0074469156(3900)0000020600(96)20230117",
-                WideWidth = 300
+                WideWidth = 10,
 
             };
 
@@ -123,8 +135,9 @@ namespace Gases.Logica
             iText.Layout.Element.Image ImgBarcode = new iText.Layout.Element.Image(img);
 
             ImgBarcode.SetFixedPosition(100, 15);
-            ImgBarcode.SetWidth(400);
-
+            ImgBarcode.SetWidth(350);
+            ImgBarcode.SetHeight(50);
+            
 
             document.Add(ImgBarcode);
 

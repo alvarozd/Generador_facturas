@@ -49,11 +49,12 @@ namespace Gases
 
 
 
-            //txtjson.Clear(); //LIMPIEZA DE TEXTBOX (PRUEBA)
-            // contrato = txtcontrato.Text; //LECTURA DEL NUMERO DE CONTRATO
-            // metodo.ConsultarDatos(contrato); //LLAMADO Y ENVIO DE VARIBLE CONTRATO
-            // txtjson.Text = metodo.json; //MUESTRA DEL RESULTADO DEL JSON TRAIDO DE LA CLASE "METODOS"
-            metodo.GenerarCodigoBc();
+            txtjson.Clear(); //LIMPIEZA DE TEXTBOX (PRUEBA)
+            contrato = txtcontrato.Text; //LECTURA DEL NUMERO DE CONTRATO
+            metodo.ConsultarDatos(contrato); //LLAMADO Y ENVIO DE VARIBLE CONTRATO
+            txtjson.Text = metodo.json; //MUESTRA DEL RESULTADO DEL JSON TRAIDO DE LA CLASE "METODOS"
+
+            //metodo.GenerarCodigoBc();
             metodo.CargarPreterminadosEnPDF();
            
          
